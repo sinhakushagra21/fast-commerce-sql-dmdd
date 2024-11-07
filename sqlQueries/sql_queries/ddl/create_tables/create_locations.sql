@@ -1,3 +1,17 @@
+BEGIN
+   EXECUTE IMMEDIATE 'DROP TABLE "USER18GP"."LOCATIONS" CASCADE CONSTRAINTS';
+   DBMS_OUTPUT.PUT_LINE('Table "LOCATIONS" dropped successfully.');
+EXCEPTION
+   WHEN OTHERS THEN
+      -- Ignore the error if the table does not exist
+      IF SQLCODE != -942 THEN
+         RAISE;
+		 ELSE
+            DBMS_OUTPUT.PUT_LINE('Table "LOCATIONS" does not exist, skipping drop.');
+      END IF;
+END;
+/
+
 CREATE TABLE "USER18GP"."LOCATIONS" 
    (	"LOCATION_ID" NUMBER(*,0) NOT NULL ENABLE, 
 	"LATITUDE" NUMBER, 
