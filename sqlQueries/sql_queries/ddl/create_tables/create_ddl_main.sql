@@ -1,4 +1,5 @@
 @create_categories.sql
+@create_contacts.sql
 @create_locations.sql
 @create_orderProducts.sql
 @create_orders.sql
@@ -8,5 +9,5 @@
 @create_products.sql
 @create_roles.sql
 @create_userLocations.sql
-@create_users.sql
 @create_warehouse.sql
+@create_users.sql
