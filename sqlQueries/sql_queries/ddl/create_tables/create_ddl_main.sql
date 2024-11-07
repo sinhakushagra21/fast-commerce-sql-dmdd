@@ -7,6 +7,6 @@
 @create_paymentTypes.sql
 @create_products.sql
 @create_roles.sql
-@create_useLocations.sql
+@create_userLocations.sql
 @create_users.sql
 @create_warehouse.sql

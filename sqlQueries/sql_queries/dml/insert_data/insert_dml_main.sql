@@ -1,0 +1,13 @@
+@insert_categories.sql
+@insert_contacts.sql
+@insert_locations.sql
+@insert_orders.sql
+@insert_orderProducts.sql
+@insert_orderStatus.sql
+@insert_payments.sql
+@insert_paymentTypes.sql
+@insert_products.sql
+@insert_roles.sql
+@insert_user_locations.sql
+@insert_users.sql
+@insert_warehouse.sql
