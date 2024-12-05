@@ -1,5 +1,5 @@
 BEGIN
-   EXECUTE IMMEDIATE 'DROP VIEW user18gp.product_price_changes';
+   EXECUTE IMMEDIATE 'DROP VIEW product_price_changes';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
@@ -7,7 +7,7 @@ EXCEPTION
       END IF;
 END;
 /
-CREATE VIEW user18gp.product_price_changes AS
+CREATE VIEW product_price_changes AS
 SELECT 
     p.product_id,
     p.product_name,
@@ -15,4 +15,4 @@ SELECT
     p.selling_price AS current_price,
     p.discounts AS discount_percentage
 FROM 
-    user18gp.products p;
+    products p;
