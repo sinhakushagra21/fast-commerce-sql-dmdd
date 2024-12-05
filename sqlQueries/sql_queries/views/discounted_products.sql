@@ -13,8 +13,8 @@ SELECT
     p.product_id,
     p.product_name,
     p.selling_price,
-    p.discounts AS discount_percentage,
-    p.selling_price * (1 - (p.discounts / 100)) AS discounted_price
+    p.discounts AS discount_amount,
+    (p.selling_price - p.discounts) AS discounted_price
 FROM 
     products p
 WHERE 
