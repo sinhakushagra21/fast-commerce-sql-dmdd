@@ -1,5 +1,5 @@
 BEGIN
-   EXECUTE IMMEDIATE 'DROP VIEW user18gp.current_inventory_status';
+   EXECUTE IMMEDIATE 'DROP VIEW current_inventory_status';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
@@ -7,7 +7,7 @@ EXCEPTION
       END IF;
 END;
 /
-CREATE VIEW user18gp.current_inventory_status AS
+CREATE VIEW current_inventory_status AS
 SELECT 
     p.product_id,
     p.product_name,
@@ -15,6 +15,6 @@ SELECT
     w.warehouse_id,
     w.is_active AS warehouse_active_status
 FROM 
-    user18gp.products p
+    products p
 JOIN 
-    user18gp.warehouse w ON p.warehouse_warehouse_id = w.warehouse_id;
+    warehouse w ON p.warehouse_warehouse_id = w.warehouse_id;

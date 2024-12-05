@@ -20,34 +20,3 @@ EXCEPTION
         RETURN 'An error occurred while validating order ID';
 END;
 /
-SET SERVEROUTPUT ON;
-
-DECLARE
-    v_status VARCHAR2(50);
-BEGIN
-    -- Test Case 1: Existing Order ID
-    v_status := check_unique_order_id(101);
-    DBMS_OUTPUT.PUT_LINE('TC001 - Existing Order ID: ' || v_status);
-
-    -- Test Case 2: Non-Existent Order ID
-    v_status := check_unique_order_id(999);
-    DBMS_OUTPUT.PUT_LINE('TC002 - Non-Existent Order ID: ' || v_status);
-
-    -- Test Case 3: Edge Case - Negative Order ID
-    v_status := check_unique_order_id(-10);
-    DBMS_OUTPUT.PUT_LINE('TC003 - Negative Order ID: ' || v_status);
-
-    -- Test Case 4: Edge Case - Zero Order ID
-    v_status := check_unique_order_id(0);
-    DBMS_OUTPUT.PUT_LINE('TC004 - Zero Order ID: ' || v_status);
-
-    -- Test Case 5: Empty Table Scenario
-    -- (Before running this test, truncate the orders table)
-    v_status := check_unique_order_id(200);
-    DBMS_OUTPUT.PUT_LINE('TC005 - Empty Table Scenario: ' || v_status);
-
-    -- Test Case 6: Large Order ID
-    v_status := check_unique_order_id(999999);
-    DBMS_OUTPUT.PUT_LINE('TC006 - Large Order ID: ' || v_status);
-END;
-/
