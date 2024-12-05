@@ -21,4 +21,4 @@ JOIN
 JOIN 
     users u ON o.users_user_id = u.user_id
 WHERE 
-    s.status_name IN ('Pending', 'Confirmed', 'Canceled');
+    s.status_name IN ('PENDING', 'CONFIRMED', 'CANCELLED');
