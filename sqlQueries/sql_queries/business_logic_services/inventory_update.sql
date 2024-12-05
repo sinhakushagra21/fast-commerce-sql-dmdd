@@ -7,7 +7,7 @@ CREATE OR REPLACE PROCEDURE update_inventory (
 BEGIN
     IF UPPER(p_action) = 'DELETE' THEN
         -- Handle product deletion
-        DELETE FROM user18gp.products
+        DELETE FROM products
         WHERE product_id = p_product_id;
 
         IF SQL%ROWCOUNT = 0 THEN
@@ -20,11 +20,11 @@ BEGIN
         -- Handle stock update
         SELECT item_quantity
         INTO v_stock
-        FROM user18gp.products
+        FROM products
         WHERE product_id = p_product_id;
 
         IF v_stock >= p_quantity THEN
-            UPDATE user18gp.products
+            UPDATE products
             SET item_quantity = item_quantity - p_quantity
             WHERE product_id = p_product_id;
 
@@ -41,23 +41,5 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20002, 'Product not found');
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20003, 'An error occurred while updating inventory');
-END;
-/
-
-
-BEGIN
-    update_inventory(101, 3, 'UPDATE');
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE(SQLERRM);
-END;
-/
-
-
-BEGIN
-    update_inventory(101, 0, 'DELETE'); -- Quantity is ignored for DELETE
-EXCEPTION
-    WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE(SQLERRM);
 END;
 /
