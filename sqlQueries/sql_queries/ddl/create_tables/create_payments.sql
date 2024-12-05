@@ -7,3 +7,7 @@ CREATE TABLE payments (
     CONSTRAINT payments_type_fk FOREIGN KEY (payment_ref_id) 
         REFERENCES payment_types(payment_type_id)
 );
+
+CREATE SEQUENCE payment_seq
+    START WITH 1 -- Starting value for the sequence
+    INCREMENT BY 1; -- Increment value for each new order
