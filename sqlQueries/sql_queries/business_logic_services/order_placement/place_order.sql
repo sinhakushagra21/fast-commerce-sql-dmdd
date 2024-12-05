@@ -21,6 +21,9 @@ CREATE OR REPLACE FUNCTION make_order(
     v_temp_quantity NUMBER;
     v_payment_id NUMBER;
 
+    -- Flag to check if the product exists in the warehouse
+    v_product_found BOOLEAN := FALSE;
+
 BEGIN
     -- find the nearest warehouse for the user id given:
     p_warehouse_id := get_nearest_warehouse_for_user(p_user_id);
@@ -34,14 +37,24 @@ BEGIN
     v_cursor := browse_products_by_warehouse(p_warehouse_id);
     
     LOOP
+        
         FETCH v_cursor INTO v_temp_product_id, v_temp_product_name, v_temp_selling_price;
         EXIT WHEN v_cursor%NOTFOUND;
         DBMS_OUTPUT.PUT_LINE('Product ID: ' || v_temp_product_id || ', Name: ' || v_temp_product_name || 
                              ', Price: ' || v_temp_selling_price);
+        
+        -- Check if the product ID matches the input product ID
+        IF v_temp_product_id = p_product_id THEN
+            v_product_found := TRUE;
+        END IF;
     END LOOP;
     CLOSE v_cursor;
 
     DBMS_OUTPUT.PUT_LINE('-----------------------------------------------------');
+
+    IF NOT v_product_found THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Product ID ' || p_product_id || ' is not available in the warehouse.');
+    END IF;
 
     -- Step 2: Add Product to Cart
     DBMS_OUTPUT.PUT_LINE('Adding Product ID ' || p_product_id || ' to cart with quantity ' || p_quantity || '...');
@@ -112,6 +125,10 @@ BEGIN
 
     -- Step 9: Update order products
     DBMS_OUTPUT.PUT_LINE('Updating order products table....');
+    update_order_products(
+        p_order_id => v_order_id,
+        product_id => p_product_id
+    );
 
     -- -- Returning a final status message
     RETURN 'Order successfully placed and delivered with Order ID ' || v_order_id;
