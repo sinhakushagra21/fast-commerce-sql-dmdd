@@ -7,7 +7,7 @@ CREATE TABLE locations (
     city_code NUMBER,
     zip_code VARCHAR2(10),
     location_type VARCHAR2(10),
-    warehouse_warehouse_id NUMBER NOT NULL,
+    warehouse_warehouse_id NUMBER,
     CONSTRAINT locations_warehouse_fk FOREIGN KEY (warehouse_warehouse_id) 
         REFERENCES warehouse(warehouse_id)
 );
