@@ -13,6 +13,6 @@ SELECT
     p.product_name,
     p.mrp AS original_price,
     p.selling_price AS current_price,
-    p.discounts AS discount_percentage
+    (1 - (p.selling_price / p.mrp)) * 100 AS discount_percentage
 FROM 
     products p;
