@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION check_stock_availability (
 BEGIN
     SELECT item_quantity
     INTO v_current_stock
-    FROM user18gp.products
+    FROM products
     WHERE product_id = p_product_id;
 
     IF v_current_stock = 0 THEN
@@ -24,15 +24,5 @@ EXCEPTION
         RETURN 'Product not found';
     WHEN OTHERS THEN
         RETURN 'An error occurred while checking stock availability';
-END;
-/
-
-
-SET SERVEROUTPUT ON;
-DECLARE
-    v_status VARCHAR2(50);
-BEGIN
-    v_status := check_stock_availability(101, 3);
-    DBMS_OUTPUT.PUT_LINE(v_status); 
 END;
 /
