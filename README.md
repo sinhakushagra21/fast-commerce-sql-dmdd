@@ -1,3 +1,5 @@
+INSTRUCTIONS AND GIT LINK: -
+LINK- https://github.com/sinhakushagra21/fast-commerce-sql-dmdd.git
 # Fast-commerce-sql-dmdd
 
 This project contains the database structure and data for the Fast grocery delievery system. It includes the DDL, DML views and user grants scripts necessary to create and populate tables, views, and other database components. Follow the instructions below to set up and work with this database.
@@ -25,9 +27,9 @@ To run this project, ensure you have the following:
 ### Installation
 
 1. Clone this repository to your local machine:
-    ```
+    
     git clone https://github.com/sinhakushagra21/fast-commerce-sql-dmdd.git
-    ```
+    
 
 2. Make sure your database client is properly connected and authenticated to the database where these scripts will be run.
 
@@ -39,7 +41,7 @@ To run this project, ensure you have the following:
 
 - Connect to your Oracle database as an admin user.
 
-- Run the **/main.sql** file to create a new user.
+- Run the */main.sql* file to create a new user.
 
 ---
 
@@ -47,24 +49,24 @@ To run this project, ensure you have the following:
 
 The project is organized into a series of scripts for defining (DDL) and manipulating (DML) data. Each section has a main script that coordinates all related operations.
 
-1. **DDL Scripts**: Start by setting up the database structure using the main DDL script. This script will create all necessary tables, indexes, and other objects.
+1. *DDL Scripts*: Start by setting up the database structure using the main DDL script. This script will create all necessary tables, indexes, and other objects.
    
-    ```sql
+    sql
     {path_to_files}/fast-commerce-sql-dmdd/sqlQueries/sql_queries/ddl/create_tables/create_ddl_main.sql
-    ```
+    
 
-    - **Note**: We have handled the case of dropign the table if already exists. The DDL script includes `DROP` statements to remove existing objects if necessary.
+    - *Note*: We have handled the case of dropign the table if already exists. The DDL script includes DROP statements to remove existing objects if necessary.
 
-    - **Note**: This package also includes individual creation of tables in-case of creating tables individually.
+    - *Note*: This package also includes individual creation of tables in-case of creating tables individually.
 
-2. This will allow the user USER18GP to create, insert, and manage data within the specified tables for this project.
+2. This will allow the user to create, insert, and manage data within the specified tables for this project.
 
-. Run the ***grant.sql*** Script:
+. Run the **grant.sql** Script:
 The grant.sql script handles creating roles with specific privileges, defining users, and assigning roles. Execute this script to complete the role and user setup:
 
-    ```sql
+    sql
         {path_to_files}/fast-commerce-sql-dmdd/sqlQueries/sql_queries/grants/grant_access.sql
-    ```
+    
 
     Explanation of Roles and Permissions:
 
@@ -77,14 +79,14 @@ The grant.sql script handles creating roles with specific privileges, defining u
 
 
 
-2. **DML Scripts**: Once the structure is in place, populate the tables using the main DML script.
+2. *DML Scripts*: Once the structure is in place, populate the tables using the main DML script.
 
-    ```sql
+    sql
     {path_to_repo_files}/fast-commerce-sql-dmdd/sqlQueries/sql_queries/dml/insert_data/insert_dml_main.sql
-    ```
+    
 
-    - **Note**:  This will insert initial data into the tables, including sample data necessary for testing the project.
-    - **Note**:  This package also includes individual insertion of data into tables in-case of inserting data into tables individually.
+    - *Note*:  This will insert initial data into the tables, including sample data necessary for testing the project.
+    - *Note*:  This package also includes individual insertion of data into tables in-case of inserting data into tables individually.
 
 ---
 
@@ -92,11 +94,11 @@ The grant.sql script handles creating roles with specific privileges, defining u
 
     The views are created separately after the DDL and DML steps are complete. To create the views, run:
 
-    ```sql
+    sql
     {path_to_repo_files}/fast-commerce-sql-dmdd/sqlQueries/sql_queries/views/insert_data/views_main.sql
-    ```
+    
 
-- **Note**:  This will create views. It has individual views as well.
+- *Note*:  This will create views. It has individual views as well.
 
 ---
 
@@ -113,15 +115,15 @@ Any changes you make will be local and cannot be pushed back to the repository.
 
 ### How and What to Run
 
-1. **Create User**: Run the **/main.sql** file and follow the user setup and grant access.
+1. *Create User: Run the **/main.sql* file and follow the user setup and grant access.
 
-2. **Initialize Database Structure**: Run the main DDL script first to create all tables and database objects.
+2. *Initialize Database Structure*: Run the main DDL script first to create all tables and database objects.
 
-3. **Grant Access**: Run the grant access sql file. {/sqlQueries/sql_queries/grants/grant_access.sql}
+3. *Grant Access*: Run the grant access sql file. {/sqlQueries/sql_queries/grants/grant_access.sql}
    
-4. **Insert Sample Data**: Run the main DML script to populate tables with data.
+4. *Insert Sample Data*: Run the main DML script to populate tables with data.
 
-5. **Create Views**: Finally, run the views_main creation script to set up views for specific data access.
+5. *Create Views*: Finally, run the views_main creation script to set up views for specific data access.
 
 ---
 
@@ -136,4 +138,36 @@ Any changes you make will be local and cannot be pushed back to the repository.
 4. Run /sqlQueries/sql_queries/dml/insert_data/insert_dml_main.sql
 
 5. Run /sqlQueries/sql_queries/views/views_main.sql
+
+### How to Run Business Logics:
+1.	Delivery Time Slots: Implement rules for selecting valid delivery time slots based on the customer’s location and product availability.
+
+•	Run /sqlQueries/sql_queries/business_logic_services/delivery_time_slot/main.sql
+
+2.	Place an order: Implemented to place an order for the user based on the nearest warehouse. User can add an item to the cart and place the order.
+
+•	Create all the functions present in the order placement folder
+•	Run /sqlQueries/sql_queries/business_logic_services/order_placement/test_cases.sql  to test the order placement logic
+
+
+3.	Valid Contact Information: Ensure that customer phone numbers and email addresses follow a valid format.
+•	Run sqlQueries/sql_queries/dml/insert_data/insert_contacts.sql
+
+
+4.	Stock Availability: Products cannot be added to the cart or sold if the quantity is zero or below a certain threshold.
+•	It’s been implemented while placing the order
+
+
+5.	Delivery Zones: Define valid delivery zones based on postal codes and ensure that orders are only accepted for addresses within these zones.
+•	It’s been implemented while placing the order
+
+
+6.	Order Quantity Validation: The order quantity cannot be negative or zero in any case.
+•	Run /sqlQueries/sql_queries/business_logic_services/valid_contact_info.sql
+
+
+7.	Customer Order History: Customer will have access to view their order history at any time.
+
+•	Run  /sqlQueries/sql_queries/views/order_summary_per_user.sql
+
 
